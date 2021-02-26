@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    Presenter
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <button id="playFile">Play file</button>
+    <button id="musicTest">Test file</button>
+    <audio src="pouet.mp3" id="track"></audio>
+    <input type="checkbox" id="recordPodcast" checked=true>Enregistrer le podcast</input>
+    <div class="slidecontainer">
+         Distortion:
+  <input type="range" min="0" max="1000" value="0" class="slider" id="distortion">
+</div>
+<div class="slidecontainer">
+         Volume:
+  <input type="range" min="0" max="100" value="50" class="slider" id="gain">
+</div>
+<div class="slidecontainer">
+         Volume musique:
+  <input type="range" min="0" max="100" value="50" class="slider" id="musicGain">
+</div>
+<div class="slidecontainer">
+         Volume invités:
+  <input type="range" min="0" max="100" value="50" class="slider" id="guestGain">
+</div>
+
+
+
+<input type="checkBox" id="muteBox">Couper envoi</input>
+<input type="checkBox" id="feedBackBox">Activer retour</input>
+<audio src="" id="finalRecording"></audio>
+</body>
+<!--<script src='SFMediaStream.js'></script>-->
+<script src="serialijse.bundle.min.js"></script>
+<script src="socket.io.js"></script>
+<script src="presenter.js"></script>
+
+</html>
