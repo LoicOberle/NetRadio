@@ -115,6 +115,7 @@ app.get('/presenter', (req, res) => {
         root: "public"
     })
 });
+
 app.get('/guest', (req, res) => {
     res.sendFile("guest.html", {
         root: "public"
