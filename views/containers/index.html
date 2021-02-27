@@ -14,8 +14,15 @@
     <h1 class="main_title">{{presentator}} est en live</h1>
 
     <h2>{{liveTitle}}</h2>
-    
+
+    <button id="playButton">Play/Pause</button>
+
+    <p>{{livePresentation}}</p>
 
   </div>
 
+{% endblock %}
+
+{% block script %}
+    <script src="{{ asset('NetRadio/controllers/streamer.js')}}"></script>
 {% endblock %}
