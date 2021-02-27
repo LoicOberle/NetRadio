@@ -1,14 +1,20 @@
 {% extends '../layout.html' %}
 
-{% block title %}{% endblock %}
+{% block title %}{{title}}{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/css/index.css">
+{% endblock %}
 
 
 {% block content %}
 
   <div class="container">
 
-    <h1>Test</h1>
-    <p>Welcome to test</p>
+    <h1 class="main_title">{{presentator}} est en live</h1>
+
+    <h2>{{liveTitle}}</h2>
+    
 
   </div>
 
