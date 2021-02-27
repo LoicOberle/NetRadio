@@ -5,6 +5,11 @@ var io = require('socket.io')(http);
 const multer  = require('multer') //use multer to upload blob data
 const upload = multer(); // set multer to be the upload variable (just like express, see above ( include it, then use it/set it up))
 const fs = require('fs');
+var swig = require('swig');
+
+var swig = new swig.Swig();
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
 
 let websockets = []
 
@@ -95,7 +100,7 @@ io.on("connection", function (ws) {
 
 app.use(express.static("public"));
 app.get('/', (req, res) => {
-    res.send("Application Netradio")
+    res.render('./containers/index', { title: 'Superhero API' });
 });
 app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
     console.log(req.file);
