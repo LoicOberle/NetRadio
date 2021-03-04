@@ -3,7 +3,9 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/index.css'">
+    <link rel="stylesheet" href="componenents.css">
+
 {% endblock %}
 
 
@@ -11,9 +13,13 @@
 
   <div class="container">
 
-    <h1 class="main_title">{{presentator}} est en live</h1>
+    <h1 class="components_main-title">{{presentator}} est en live</h1>
 
     <h2>{{liveTitle}}</h2>
+
+    	
+    <progress value="150" max="200">50%</progress> 
+
 
     <button id="playButton">Play/Pause</button>
 
