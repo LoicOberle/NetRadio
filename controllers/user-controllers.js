@@ -1,5 +1,7 @@
 const express  = require('express');
 
+const bdd = require("../utils/DBclients");
+
 DOMParser = require('xmldom').DOMParser;
 
 exports.login = async(req, res, next) => {
@@ -12,6 +14,12 @@ exports.validLogin = async (req, res, next) => {
 
     console.log("ValidLogin + ", username);
     console.log("ValidLogin + ", password);
+
+    try {
+        // let sqlSignIn = await bdd.query("SELECT * FROM ")
+    } catch(err) {
+        res.send(err);
+    }
 
     res.redirect('/');
 }
