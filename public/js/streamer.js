@@ -59,7 +59,9 @@ mySocket.on('musicStream', function (packet) {
 
 
 });
+
 playButton.addEventListener("click", () => {
+    console.log("TEST")
     play = !play
 
 })

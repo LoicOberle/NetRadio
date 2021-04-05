@@ -3,8 +3,6 @@
 {% block title %}{{title}}{% endblock %}
 
 {% block stylesheet %}
-    <link rel="stylesheet" href="/css/index.css'">
-    <link rel="stylesheet" href="componenents.css">
 
 {% endblock %}
 
@@ -30,5 +28,7 @@
 {% endblock %}
 
 {% block script %}
-    <script src="{{ asset('NetRadio/controllers/streamer.js')}}"></script>
+  <script src="js/serialijse.bundle.min.js"></script>
+  <script src="js/socket.io.js"></script>
+  <script src="js/streamer.js"></script>
 {% endblock %}
