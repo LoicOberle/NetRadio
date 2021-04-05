@@ -6,14 +6,20 @@ const multer  = require('multer') //use multer to upload blob data
 const upload = multer(); // set multer to be the upload variable (just like express, see above ( include it, then use it/set it up))
 const fs = require('fs');
 let swig = require('swig');
+const bodyparser = require("body-parser");
 
 let websockets = [];
 
 swig = new swig.Swig();
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
+app.use(bodyparser.urlencoded({extend: false}));
 
 const indexRouter = require('./routes/main');
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
+const { Server } = require('http');
+
 
 io.on("connection", function (ws) {
     console.log('New Socket connection');
@@ -100,7 +106,20 @@ io.on("connection", function (ws) {
 
 app.use(express.static("public"));
 
-app.get('/', indexRouter);
+app.use('/', indexRouter);
+
+app.use('/login', loginRouter);
+
+app.use('/signup', registerRouter);
+
+// app.get('/live', nameRouter);
+
+// app.get('/schedule', nameRouter);
+
+// app.get('/podcast', nameRouter);
+
+// app.get('/:username', nameRouter);
+
 
 
 app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
@@ -116,6 +135,7 @@ app.get('/streamer', (req, res) => {
         root: "public"
     })
 });
+
 app.get('/presenter', (req, res) => {
     res.sendFile("presenter.html", {
         root: "public"
@@ -127,6 +147,6 @@ app.get('/guest', (req, res) => {
         root: "public"
     })
 });
-http.listen(process.env.PORT || 5000, () => {
+http.listen(5000,  () => {
     console.log(`Server started on port`);
 });

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  backend: 
+    container_name: backend
+    image: node
+    ports:
+      - "19080:3000"
+    volumes:
+      - ./
