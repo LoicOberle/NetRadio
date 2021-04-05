@@ -130,11 +130,6 @@ app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
   res.sendStatus(200); //send back that everything went ok
 
 });
-app.get('/streamer', (req, res) => {
-    res.sendFile("streamer.html", {
-        root: "public"
-    })
-});
 
 app.get('/presenter', (req, res) => {
     res.sendFile("presenter.html", {
@@ -147,6 +142,7 @@ app.get('/guest', (req, res) => {
         root: "public"
     })
 });
+
 http.listen(5000,  () => {
     console.log(`Server started on port`);
 });

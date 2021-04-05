@@ -6,6 +6,16 @@ exports.login = async(req, res, next) => {
     res.render('containers/login')
 }
 
+exports.validLogin = async (req, res, next) => {
+    const username = req.query.username;
+    const password = req.query.password;
+
+    console.log("ValidLogin + ", username);
+    console.log("ValidLogin + ", password);
+
+    res.redirect('/');
+}
+
 exports.register = async(req, res, next) => {
     res.render('containers/register')
 }
@@ -21,10 +31,5 @@ exports.validRegister = async(req, res, next) => {
     console.log(passwordConfirm);
     console.log(mail);
 
-    res.json({
-        username: username,
-        password: password,
-        passwordConfirm: passwordConfirm,
-        mail: mail
-    }).location('/login');
+    res.redirect('/login');
 }
