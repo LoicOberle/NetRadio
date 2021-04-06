@@ -9,7 +9,9 @@ var deserialize = serialijse.deserialize;
 var context = new AudioContext()
 var buffer, bufferSource;
 var musicBuffer,musicBufferSource
-const playButton = document.getElementById("playButton")
+const playButton = document.getElementById("playButton");
+let imgButton = document.getElementById("imgButton");
+let adresseSite = "http://localhost:19080/";
 var play = false
 
 var sampleRate=10000
@@ -59,4 +61,11 @@ mySocket.on('musicStream', function (packet) {
 
 playButton.addEventListener("click", () => {
     play = !play
+    console.log("test");
+    console.log(imgButton.src);
+    if(imgButton.src == adresseSite + "images/playIcon.png"){
+        imgButton.src = adresseSite + "images/pause-button.png";
+    }else{
+        imgButton.src = adresseSite + "images/playIcon.png";
+    }
 })
