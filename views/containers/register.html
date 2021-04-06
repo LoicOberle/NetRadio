@@ -3,6 +3,7 @@
 {% block title %}Login{% endblock %}
 
 {% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/register.css">
 {% endblock %}
 
 
@@ -10,7 +11,11 @@
 
   <div class="container">
 
-    <h1>Register Page</h1>
+    <h1>INSCRIPTION</h1>
+
+    <h2>Pourquoi s'inscrire sur Net'Radio ?</h2>
+
+    <div class="desciption">Vous inscrire vous permettra d'être tenu au courant des dates d'émissions en suivant des présentateurs ou des émissions que vous aimez.</div>
 
     <form action="/signup/valid" method="post">
         <input name="username" type="text"  id="username" placeholder="Pseudo" />
