@@ -18,6 +18,7 @@ app.use(bodyparser.urlencoded({extend: false}));
 const indexRouter = require('./routes/main');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+const userRouter = require('./routes/user');
 const { Server } = require('http');
 
 
@@ -112,13 +113,13 @@ app.use('/login', loginRouter);
 
 app.use('/signup', registerRouter);
 
-// app.get('/live', nameRouter);
+// app.use('/live', nameRouter);
 
-// app.get('/schedule', nameRouter);
+// app.use('/schedule', nameRouter);
 
-// app.get('/podcast', nameRouter);
+// app.use('/podcast', nameRouter);
 
-// app.get('/:username', nameRouter);
+app.use('/user', userRouter);
 
 
 
