@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "run": "node server.js",
-    "start": "node app.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/LoicOberle/NetRadio/issues"
   },
-  "homepage": "https://github.com/LoicOberle/NetRadio#readme"
+  "homepage": "https://github.com/LoicOberle/NetRadio#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
 }
