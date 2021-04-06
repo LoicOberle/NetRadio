@@ -56,3 +56,8 @@ p{
     grid-column: 1/4;
     font-size: large;
 }
+
+#playButton {
+    background-color: rgba(255, 255, 255, 0);
+    border: 0;
+}
