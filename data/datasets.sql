@@ -1,4 +1,4 @@
-INSERT INTO theme (id, name) VALUES
+INSERT INTO Theme (id, name) VALUES
 (1, 'Films'),
 (2, 'Economies'),
 (3, 'Séries'),
@@ -7,13 +7,13 @@ INSERT INTO theme (id, name) VALUES
 (6, 'Politique'),
 (7, 'Actualités');
 
-INSERT INTO status (id, label) VALUES
+INSERT INTO Status (id, label) VALUES
 (1, 'admin'),
 (2, 'announcer'),
 (3, 'auditor'),
 (4, 'visitor');
 
-INSERT INTO music (id, title, author, duration, url) VALUES
+INSERT INTO Music (id, title, author, duration, url) VALUES
 (1, 'Ocean', 'David Davis', '00:04:03', '001-1801400-David Davis-Ocean.mp3'),
 (2, 'Glow in the Dark (Scorpio)', 'RENAE', '00:03:47', '002-1806470-RENAE-Glow in the Dark _Scorpio_.mp3'),
 (3, 'Heroes', 'Back On Earth', '00:03:31', '003-1782916-Back On Earth-Heroes.mp3'),
@@ -36,7 +36,7 @@ INSERT INTO music (id, title, author, duration, url) VALUES
 (20, 'Weightless', 'Fresh Body Shop', '00:03:11', '020-1819049-Fresh Body Shop-Weightless.mp3'),
 (21, 'Do You Ever Feel Sorry', 'The.madpix.project', '00:03:21', '021-1819994-The.madpix.project-Do You Ever Feel Sorry.mp3');
 
-INSERT INTO user (id, pseudo, mail, password, ban, id_status) VALUES
+INSERT INTO User (id, pseudo, mail, password, ban, id_status) VALUES
 (1, 'Admin', 'admin@gmail.com', 'admin', 'false', 1),
 (2, 'Keduma', 'keduma@gmail.com', 'Keduma123', 'false', 2),
 (3, 'Guitar', 'Guitar@gmail.com', 'Guitar123', 'false', 2),
@@ -48,19 +48,19 @@ INSERT INTO user (id, pseudo, mail, password, ban, id_status) VALUES
 (9, 'Aditor3', 'Aditor3@gmail.com', 'Aditor3', 'false', 3),
 (10, 'AditorBan', 'AditorBan@gmail.com', 'AditorBan', 'true', 3);
 
-INSERT INTO playlist (id, title, description, id_user) VALUES
+INSERT INTO Playlist (id, title, description, id_user) VALUES
 (1, 'Playlist 1 Keduma','Ceci est la playlist 1 de music de Keduma', 2),
 (2, 'Playlist 2 Keduma','Ceci est la playlist 2 de music de Keduma', 2),
 (3, 'Playlist 1 Zacpot','Ceci est la playlist 1 de music de Zacpot', 4),
 (4, 'Playlist 1 Guitar','Ceci est la playlist 1 de music de Guitar', 3),
 (5, 'Playlist 1 Trema','Ceci est la playlist 1 de music de Trema', 5);
 
-INSERT INTO music_playlist (id_playlist, id_music) VALUES
+INSERT INTO Music_playlist (id_playlist, id_music) VALUES
 (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),
 (2,1),(2,3),(2,5),(2,7),(2,9),(2,11),(2,13),(2,15),(2,17),(2,19),(2,21),
 (3,11),(3,12),(3,13),(3,13),(3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21),
 (4,2),(4,4),(4,6),(4,8),(4,10),(4,12),(4,14),(4,16),(4,18),(4,20),
 (5,1),(5,2),(5,3),(5,4),(5,5),(5,6),(5,7),(5,8),(5,9),(5,10);
 
-INSERT INTO broadcast (title, description, icon, is_podcast, link_audio, guests, id_user, id_theme) VALUES
+INSERT INTO Broadcast (title, description, icon, is_podcast, link_audio, guests, id_user, id_theme) VALUES
 ('Overwatch un dead Game')
