@@ -35,7 +35,7 @@
 
 #navigation_menu {
     height: calc(100vh - 80px);
-    background-color: #202020;
+    background-color: #252525;
     width: 100%;
     color: #fff;
     flex-direction: column;
