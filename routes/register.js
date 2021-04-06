@@ -3,7 +3,10 @@ const router  = express.Router();
 
 const userControllers = require('../controllers/user-controllers');
 
-router.get('/:username/live', userControllers.userLive);
+router.get('/', userControllers.register);
+
+router.post('/valid', userControllers.validRegister);
+
 
 
 module.exports = router;

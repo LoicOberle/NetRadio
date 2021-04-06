@@ -3,7 +3,9 @@ const router  = express.Router();
 
 const userControllers = require('../controllers/user-controllers');
 
-router.get('/:username/live', userControllers.userLive);
+router.get('/', userControllers.login);
+
+router.get('/valid', userControllers.validLogin);
 
 
 module.exports = router;
