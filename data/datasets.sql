@@ -1,19 +1,21 @@
-INSERT INTO Theme (id, name) VALUES
+INSERT INTO Theme (idTheme, name) VALUES
 (1, 'Films'),
 (2, 'Economies'),
 (3, 'Séries'),
 (4, 'Jeux vidéo'),
 (5, 'Musiques'),
 (6, 'Politique'),
-(7, 'Actualités');
+(7, 'Sport'),
+(8, 'Actualités'),
+(9, 'Art');
 
-INSERT INTO Status (id, label) VALUES
+INSERT INTO Status (idStatus, label) VALUES
 (1, 'admin'),
-(2, 'announcer'),
+(2, 'presenter'),
 (3, 'auditor'),
 (4, 'visitor');
 
-INSERT INTO Music (id, title, author, duration, url) VALUES
+INSERT INTO Music (idMusic, title, author, duration, url) VALUES
 (1, 'Ocean', 'David Davis', '00:04:03', '001-1801400-David Davis-Ocean.mp3'),
 (2, 'Glow in the Dark (Scorpio)', 'RENAE', '00:03:47', '002-1806470-RENAE-Glow in the Dark _Scorpio_.mp3'),
 (3, 'Heroes', 'Back On Earth', '00:03:31', '003-1782916-Back On Earth-Heroes.mp3'),
@@ -36,31 +38,68 @@ INSERT INTO Music (id, title, author, duration, url) VALUES
 (20, 'Weightless', 'Fresh Body Shop', '00:03:11', '020-1819049-Fresh Body Shop-Weightless.mp3'),
 (21, 'Do You Ever Feel Sorry', 'The.madpix.project', '00:03:21', '021-1819994-The.madpix.project-Do You Ever Feel Sorry.mp3');
 
-INSERT INTO User (id, pseudo, mail, password, ban, id_status) VALUES
-(1, 'Admin', 'admin@gmail.com', 'admin', 'false', 1),
-(2, 'Keduma', 'keduma@gmail.com', 'Keduma123', 'false', 2),
-(3, 'Guitar', 'Guitar@gmail.com', 'Guitar123', 'false', 2),
-(4, 'Zacpot', 'Zacpot@gmail.com', 'Zacpot123', 'false', 2),
-(5, 'Trema', 'Trema@gmail.com', 'Trema123', 'false', 2),
-(6, 'Shiryu', 'Shiryu@gmail.com', 'Shiryu123', 'false', 3),
-(7, 'Aditor1', 'Aditor1@gmail.com', 'Aditor1', 'false', 3),
-(8, 'Aditor2', 'Aditor2@gmail.com', 'Aditor2', 'false', 3),
-(9, 'Aditor3', 'Aditor3@gmail.com', 'Aditor3', 'false', 3),
-(10, 'AditorBan', 'AditorBan@gmail.com', 'AditorBan', 'true', 3);
+INSERT INTO User (idUser, pseudo, mail, password, ban, id_status) VALUES
+(1, 'Admin', 'Admin@gmail.com', 'admin123', FALSE, 1),
+(2, 'Keduma', 'Keduma@gmail.com', 'keduma123', FALSE, 2),
+(3, 'Guitar', 'Guitar@gmail.com', 'guitar123', FALSE, 2),
+(4, 'Zacpot', 'Zacpot@gmail.com', 'zacpot123', FALSE, 2),
+(5, 'Trema', 'Trema@gmail.com', 'trema123', FALSE, 2),
+(6, 'Shiryu', 'Shiryu@gmail.com', 'shiryu123', FALSE, 3),
+(7, 'Auditor1', 'Auditor1@gmail.com', 'auditor1', FALSE, 3),
+(8, 'Auditor2', 'Auditor2@gmail.com', 'auditor2', FALSE, 3),
+(9, 'Auditor3', 'Auditor3@gmail.com', 'auditor3', FALSE, 3),
+(10, 'AuditorBan', 'AuditorBan@gmail.com', 'auditorban', TRUE, 3);
 
-INSERT INTO Playlist (id, title, description, id_user) VALUES
+INSERT INTO Playlist (idPlaylist, title, description, id_user) VALUES
 (1, 'Playlist 1 Keduma','Ceci est la playlist 1 de music de Keduma', 2),
 (2, 'Playlist 2 Keduma','Ceci est la playlist 2 de music de Keduma', 2),
 (3, 'Playlist 1 Zacpot','Ceci est la playlist 1 de music de Zacpot', 4),
 (4, 'Playlist 1 Guitar','Ceci est la playlist 1 de music de Guitar', 3),
 (5, 'Playlist 1 Trema','Ceci est la playlist 1 de music de Trema', 5);
 
-INSERT INTO Music_playlist (id_playlist, id_music) VALUES
+INSERT INTO Music_Playlist (id_playlist, id_music) VALUES
 (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),
 (2,1),(2,3),(2,5),(2,7),(2,9),(2,11),(2,13),(2,15),(2,17),(2,19),(2,21),
 (3,11),(3,12),(3,13),(3,13),(3,15),(3,16),(3,17),(3,18),(3,19),(3,20),(3,21),
 (4,2),(4,4),(4,6),(4,8),(4,10),(4,12),(4,14),(4,16),(4,18),(4,20),
 (5,1),(5,2),(5,3),(5,4),(5,5),(5,6),(5,7),(5,8),(5,9),(5,10);
 
-INSERT INTO Broadcast (title, description, icon, is_podcast, link_audio, guests, id_user, id_theme) VALUES
-('Overwatch un dead Game')
+INSERT INTO Broadcast (title, description, icon, is_podcast, link_audio, id_presenter, id_theme) VALUES
+('Overwatch un dead Game', "Aujourd'hui nous allons débattre avec nos invités sur l'avenir du jeu Overwatch, un jeu éditer par Blizzard et sortie en 2016", "https://static.thenounproject.com/png/2222628-200.png", TRUE, '', 2, 4),
+('Actualité Sportive', "Actualité football, NBA, NFL et autres", "https://static.thenounproject.com/png/2222628-200.png", TRUE, '', 3, 7),
+('Actualité Manga', "Nouveaux épisodes de snk, Jojo's Bizarre Adventure,...", "https://static.thenounproject.com/png/2222628-200.png", TRUE, '', 4, 9),
+('Covid19 et etudiants', "Aujourd'hui nous allons parler du covid19 et de ces problèmatiques chez les étudiants", "https://static.thenounproject.com/png/2222628-200.png", TRUE, '', 5, 8);
+
+INSERT INTO Guest (id_broadcast, id_user) VALUES
+(1,3),(1,6),
+(2,2),(2,4),
+(3,6),(3,5),
+(4,4),(4,3),(4,2);
+
+INSERT INTO Rebroadcast (title, description, icon, id_presenter, id_theme, id_broadcast) VALUES
+('Overwatch un dead Game', "Aujourd'hui nous allons débattre avec nos invités sur l'avenir du jeu Overwatch, un jeu éditer par Blizzard et sortie en 2016", "https://static.thenounproject.com/png/2222628-200.png", 2, 4, 1),
+('Actualité Sportive', "Actualité football, NBA, NFL et autres", "https://static.thenounproject.com/png/2222628-200.png", 3, 7, 2),
+('Actualité Manga', "Nouveaux épisodes de snk, Jojo's Bizarre Adventure,...", "https://static.thenounproject.com/png/2222628-200.png", 4, 9, 3),
+('Covid19 et etudiants', "Aujourd'hui nous allons parler du covid19 et de ces problèmatiques chez les étudiants", "https://static.thenounproject.com/png/2222628-200.png", 5, 8, 4);
+
+INSERT INTO Comment (text, date_send, id_user, id_broadcast) VALUES
+('Super poadcast', "03/04/2021-14:00:00", 3, 1),
+('Très intéressant !', "03/04/2021-15:00:00", 4, 1),
+('J ai pas vu le temps passer, c etait super cool', "04/04/2021-10:00:00", 5, 1);
+
+INSERT INTO Message (text, date_send, id_user, id_broadcast) VALUES
+('Bonjour tous le monde', "02/04/2021-08:01:00", 3, 1),
+('Salut !', "02/04/2021-08:02:00", 4, 1),
+('Parfais je déjeune en même temps', "02/04/2021-08:10:00", 5, 1);
+
+INSERT INTO Slot (date_start, date_end, id_broadcast) VALUES
+("02/04/2021-08:00:00", "02/04/2021-11:00:00", 1),
+("08/04/2021-14:00:00", "08/04/2021-16:00:00", 2),
+("20/04/2021-08:00:00", "20/04/2021-10:00:00", 3),
+("02/04/2021-06:30:00", "02/04/2021-10:00:00", 4);
+
+INSERT INTO Slot (date_start, date_end, id_rebroadcast) VALUES
+("02/04/2021-12:00:00", "02/04/2021-15:00:00", 1),
+("09/04/2021-14:00:00", "09/04/2021-16:00:00", 2),
+("20/04/2021-14:00:00", "20/04/2021-16:00:00", 3),
+("02/05/2021-18:30:00", "02/04/2021-22:00:00", 4);

@@ -1,18 +1,18 @@
 CREATE TABLE Theme
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idTheme INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name VARCHAR(255)
 )ENGINE=InnoDB;
 
 CREATE TABLE Status
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idStatus INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     label VARCHAR(255)
 )ENGINE=InnoDB;
 
 CREATE TABLE Music
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idMusic INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255),
     author VARCHAR(255),
     duration VARCHAR(8),
@@ -21,7 +21,7 @@ CREATE TABLE Music
 
 CREATE TABLE User
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idUser INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     pseudo VARCHAR(255),
     mail VARCHAR(255),
     password VARCHAR(255),
@@ -31,7 +31,7 @@ CREATE TABLE User
 
 CREATE TABLE Playlist
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idPlaylist INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255),
     description VARCHAR(255),
     id_user INT
@@ -39,38 +39,45 @@ CREATE TABLE Playlist
 
 CREATE TABLE Music_Playlist
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idMusic_Playlist INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     id_music INT,
     id_playlist INT
 )ENGINE=InnoDB;
 
 CREATE TABLE Broadcast
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idBroadcast INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255),
     description VARCHAR(255),
     icon VARCHAR(255),
     is_podcast boolean,
     link_audio VARCHAR(255),
-    guests VARCHAR(255),
-    id_user INT,
+    id_presenter INT,
     id_theme INT
 )ENGINE=InnoDB;
 
+CREATE TABLE Guest
+(
+    idGuest INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id_broadcast INT,
+    id_user INT
+)ENGINE=InnoDB;
+
+
 CREATE TABLE Rebroadcast
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idRebroadcast INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     title VARCHAR(255),
     description VARCHAR(255),
     icon VARCHAR(255),
-    id_user INT,
+    id_presenter INT,
     id_theme INT,
     id_broadcast INT
 )ENGINE=InnoDB;
 
 CREATE TABLE Comment
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idComment INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     text VARCHAR(255),
     date_send VARCHAR(255),
     id_user INT,
@@ -79,7 +86,7 @@ CREATE TABLE Comment
 
 CREATE TABLE Message
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idMessage INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     text VARCHAR(255),
     date_send VARCHAR(255),
     id_user INT,
@@ -89,7 +96,7 @@ CREATE TABLE Message
 
 CREATE TABLE Slot
 (
-    id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    idSlot INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     date_start VARCHAR(255),
     date_end VARCHAR(255),
     id_broadcast INT,
@@ -97,41 +104,47 @@ CREATE TABLE Slot
 )ENGINE=InnoDB;
 
 ALTER TABLE User
-ADD CONSTRAINT fk_user_status FOREIGN KEY (id_status) REFERENCES Status(id);
+ADD CONSTRAINT fk_user_status FOREIGN KEY (id_status) REFERENCES Status(idStatus);
 
 ALTER TABLE Playlist
-ADD CONSTRAINT fk_playlist_user FOREIGN KEY (id_user) REFERENCES User(id);
+ADD CONSTRAINT fk_playlist_user FOREIGN KEY (id_user) REFERENCES User(idUser);
 
 ALTER TABLE Music_Playlist
-ADD CONSTRAINT fk_music_playlist_music FOREIGN KEY (id_music) REFERENCES Music(id);
+ADD CONSTRAINT fk_music_playlist_music FOREIGN KEY (id_music) REFERENCES Music(idMusic);
 ALTER TABLE Music_Playlist
-ADD CONSTRAINT fk_music_playlist_playlist FOREIGN KEY (id_playlist) REFERENCES Playlist(id);
+ADD CONSTRAINT fk_music_playlist_playlist FOREIGN KEY (id_playlist) REFERENCES Playlist(idPlaylist);
 
 ALTER TABLE Broadcast
-ADD CONSTRAINT fk_broadcast_user FOREIGN KEY (id_user) REFERENCES User(id);
+ADD CONSTRAINT fk_broadcast_user FOREIGN KEY (id_presenter) REFERENCES User(idUser);
 ALTER TABLE Broadcast
-ADD CONSTRAINT fk_broadcast_theme FOREIGN KEY (id_theme) REFERENCES Theme(id);
+ADD CONSTRAINT fk_broadcast_theme FOREIGN KEY (id_theme) REFERENCES Theme(idTheme);
 
 ALTER TABLE Rebroadcast
-ADD CONSTRAINT fk_rebroadcast_user FOREIGN KEY (id_user) REFERENCES User(id);
+ADD CONSTRAINT fk_rebroadcast_user FOREIGN KEY (id_presenter) REFERENCES User(idUser);
 ALTER TABLE Rebroadcast
-ADD CONSTRAINT fk_rebroadcast_theme FOREIGN KEY (id_theme) REFERENCES Theme(id);
+ADD CONSTRAINT fk_rebroadcast_theme FOREIGN KEY (id_theme) REFERENCES Theme(idTheme);
 ALTER TABLE Rebroadcast
-ADD CONSTRAINT fk_rebroadcast_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(id);
+ADD CONSTRAINT fk_rebroadcast_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(idBroadcast);
 
 ALTER TABLE Comment
-ADD CONSTRAINT fk_comment_user FOREIGN KEY (id_user) REFERENCES User(id);
+ADD CONSTRAINT fk_comment_user FOREIGN KEY (id_user) REFERENCES User(idUser);
 ALTER TABLE Comment
-ADD CONSTRAINT fk_comment_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(id);
+ADD CONSTRAINT fk_comment_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(idBroadcast);
 
 ALTER TABLE Message
-ADD CONSTRAINT fk_message_user FOREIGN KEY (id_user) REFERENCES User(id);
+ADD CONSTRAINT fk_message_user FOREIGN KEY (id_user) REFERENCES User(idUser);
 ALTER TABLE Message
-ADD CONSTRAINT fk_message_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(id);
+ADD CONSTRAINT fk_message_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(idBroadcast);
 ALTER TABLE Message
-ADD CONSTRAINT fk_message_rebroadcast FOREIGN KEY (id_rebroadcast) REFERENCES Rebroadcast(id);
+ADD CONSTRAINT fk_message_rebroadcast FOREIGN KEY (id_rebroadcast) REFERENCES Rebroadcast(idRebroadcast);
 
 ALTER TABLE Slot
-ADD CONSTRAINT fk_slot_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(id);
+ADD CONSTRAINT fk_slot_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(idBroadcast);
 ALTER TABLE Slot
-ADD CONSTRAINT fk_slot_rebroadcast FOREIGN KEY (id_rebroadcast) REFERENCES Rebroadcast(id);
+ADD CONSTRAINT fk_slot_rebroadcast FOREIGN KEY (id_rebroadcast) REFERENCES Rebroadcast(idRebroadcast);
+
+
+ALTER TABLE Guest
+ADD CONSTRAINT fk_guest_broadcast FOREIGN KEY (id_broadcast) REFERENCES Broadcast(idBroadcast);
+ALTER TABLE Guest
+ADD CONSTRAINT fk_guest_user FOREIGN KEY (id_user) REFERENCES User(idUser);

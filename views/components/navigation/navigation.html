@@ -1,0 +1,46 @@
+{% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/navigation/navigation.css">
+{% endblock %}
+
+{% block navigation %}
+
+<div class="navigation">
+    <a href="/">
+        <img 
+            src="/images/logo_v1.png" 
+            alt=""
+            class="navigation_logo">
+    </a>
+
+    <div id="navigation_hamburgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+</div>
+
+<nav id="navigation_menu">
+    <ul>
+        <li><a href="/">ACCUEIL</a> </li>
+        <li><a href="/schedule">PROGRAMMATION</a></li>
+        <li><a href="/live">LIVE</a></li>
+        <li><a href="/podcasts">PODCAST</a></li>
+    </ul>
+    <ul>
+        <li><a href="/rights">DROITS</a></li>
+        <li><a href="/askrights">DEMANDES DE DROITS</a></li>
+        <li><a href="/user">USER</a></li>
+        <li><a href="/user"><span class="navigation_menu_greenButton">CREATION LIVE</span></a></li>
+        <li><a href="/login">SE CONNECTER</a></li>
+        <li><a href="/logout"><span class="navigation_menu_purpleButton">SE DECONNECTER</span></a></li>
+        <li><a href="/signup"><span class="navigation_menu_purpleButton">S'INSCRIRE</span></a></li>
+    </ul>
+</nav>
+
+
+{% endblock %}
+
+{% block script %}
+  <script src="/js/navigation.js"></script>
+{% endblock %}
