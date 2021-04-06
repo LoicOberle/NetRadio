@@ -2,7 +2,10 @@
 
 {% block title %}Login{% endblock %}
 
+
+
 {% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/login.css">
 {% endblock %}
 
 
@@ -10,13 +13,13 @@
 
   <div class="container">
 
-    <h1>Login Page</h1>
+    <h1>CONNEXION</h1>
 
     <form action="/login/valid" method="get">
       <input name="username" type="text"  id="username" placeholder="Pseudo" />
       <input name="password" type="password" id="password" placeholder="Mot de passe" />
       <input type="submit" id="submit" placeholder="Pseudo" value="S'inscire" />
-  </form>
+    </form>
 
   </div>
 
