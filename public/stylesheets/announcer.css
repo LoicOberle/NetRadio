@@ -40,7 +40,7 @@ input[type='range'] {
      height: 10px;
      cursor: ew-resize;
      background: purple;
-     box-shadow: -80px 0 0 80px purple;
+     
  }
  label{
      color: purple;
@@ -76,4 +76,10 @@ input[type='range'] {
  ::-webkit-scrollbar-thumb {
      background: purple;
      border-radius: 1rem;
+ }
+
+ #finalRecording{
+     position: absolute;
+     left:30vw;
+     bottom:0px;
  }
