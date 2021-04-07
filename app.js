@@ -8,12 +8,15 @@ const fs = require('fs');
 let swig = require('swig');
 const bodyparser = require("body-parser");
 
+const LOCAL_PORT = process.env.LOCAL_PORT;
+
 let websockets = [];
 
 swig = new swig.Swig();
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
-app.use(bodyparser.urlencoded({extend: false}));
+// app.use(bodyparser.urlencoded({extend: false}));
+app.use(bodyparser.json());
 
 const indexRouter = require('./routes/main');
 const loginRouter = require('./routes/login');
@@ -144,6 +147,6 @@ app.get('/guest', (req, res) => {
     })
 });
 
-http.listen(5000,  () => {
-    console.log(`Server started on port`);
+http.listen(LOCAL_PORT,  () => {
+    console.log(`Server started on port : ` + LOCAL_PORT );
 });
