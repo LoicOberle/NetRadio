@@ -289,7 +289,7 @@ navigator.mediaDevices.getUserMedia({
         playTrackButton.disabled = true
         start.disabled = false
         scriptNode.disconnect(context.destination);
-         musicScriptNode.disconnect(context.destination);
+        musicScriptNode.disconnect(context.destination);
          gainNode.disconnect(destinationNode)
         musicGainNode.disconnect(destinationNode)
         

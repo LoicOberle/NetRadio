@@ -5,38 +5,49 @@
 {% endblock %}
 
 {% block stylesheet %}
-
+<link rel="stylesheet" href="/stylesheets/announcer.css">
 {% endblock %}
 
 
 {% block content %}
-
+{% include '../components/navigation/navigation.html' %}
   <div class="container">
 
     <h1>{{liveTitle}}</h1>
-
+     <p id="presentation"cl>{{LivePresentation}}</p>
+      <p id='controlsLabel'>Controles:</p>
+    <div id=controls>
+   
     <button id="start">Start</button>
     <button id="stop">Stop</button>
     <button id="playFile">Play file</button>
     <button id="musicTest">Test file</button>
     <audio src="exemple1.mp3" id="track"></audio>
-    <input type="checkbox" id="recordPodcast" checked=true>Enregistrer le podcast</input>
+    <label for="recording">Enregistrer le podcast</label>
+   <input type="checkbox" id="recordPodcast" name='recording' checked=true</input>
     <div class="slidecontainer">
          Distortion:
-    <input type="range" min="0" max="1000" value="0" class="slider" id="distortion">
+         <label for="distortion">Distortion</label>
+    <input type="range" min="0" max="1000" value="0" class="slider" name="distortion" id="distortion">
     </div>
     <div class="slidecontainer">
-            Volume:
-    <input type="range" min="0" max="100" value="50" class="slider" id="gain">
+            <label for="gain">Volume voix: </label>
+    <input type="range" min="0" max="100" value="50" class="slider" name="gain" id="gain">
     </div>
     <div class="slidecontainer">
-            Volume musique:
-      <input type="range" min="0" max="100" value="50" class="slider" id="musicGain">
+            <label for="musicGain">Volume musique:</label>
+      <input type="range" min="0" max="100" value="50" class="slider" name="musicGain" id="musicGain">
     </div>
+    <label for="mute">Couper la voix</label>
+     <input type="checkBox" id="muteBox" name="mute"></input>
+     <label for="feedback">Activer le retour</label>
+    <input type="checkBox" id="feedBackBox" name='feedback'></input>
+  </div>
+    
+   
 
 
-    <input type="checkBox" id="muteBox">Couper envoi</input>
-    <input type="checkBox" id="feedBackBox">Activer retour</input>
+   
     <audio src="" id="finalRecording"></audio>
 
 
