@@ -19,7 +19,6 @@ const indexRouter = require('./routes/main');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const userRouter = require('./routes/user');
-const updateAuditorRouter = require('./routes/updateAuditor');
 const { Server } = require('http');
 
 
@@ -113,8 +112,6 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 
 app.use('/signup', registerRouter);
-
-app.use('/updateAuditor', updateAuditorRouter);
 
 // app.use('/live', nameRouter);
 
