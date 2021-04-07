@@ -19,6 +19,7 @@ const indexRouter = require('./routes/main');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const userRouter = require('./routes/user');
+const liveRouter = require('./routes/live');
 const { Server } = require('http');
 
 
@@ -113,7 +114,7 @@ app.use('/login', loginRouter);
 
 app.use('/signup', registerRouter);
 
-// app.use('/live', nameRouter);
+app.use('/live', liveRouter);
 
 // app.use('/schedule', nameRouter);
 

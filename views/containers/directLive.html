@@ -1,0 +1,47 @@
+{% extends '../layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/directLive.css">
+{% endblock %}
+
+
+{% block content %}
+
+{% include '../components/navigation/navigation.html' %}
+
+  <div class="container"> 
+
+    <h1>{{announcer}} EST EN LIVE</h1>
+
+    <div class="presentation">
+        <h2 class="title">{{liveTitle}}</h2>
+
+        <progress value="150" max="200"></progress><br />
+
+        <meta  name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <button id="playButton">
+            <img id="imgButton" src="/images/playIcon.png" alt="">
+        </button>
+
+        <span class="horaire">{{horaire}}</span>
+
+        <div class="description">{{LivePresentation}}</div>
+    </div>
+
+    <div class="h1-2">Tchat</div>
+
+    <div class="tchat">
+        
+    </div>
+
+  </div>
+
+{% endblock %}
+
+{% block script %}
+  <script src="js/serialijse.bundle.min.js"></script>
+  <script src="js/socket.io.js"></script>
+  <script src="js/streamer.js"></script>
+{% endblock %}
