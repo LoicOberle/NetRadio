@@ -1,0 +1,79 @@
+html>*{
+    background-color: rgb(20,20,20);
+}
+
+
+h1{
+    color:rgb(121, 236, 183);
+}
+
+button{
+    background-color: grey;
+    color:black;
+}
+
+#controls{
+    display:block;
+    /*background-color: red;*/
+    width:25vw;
+   position: absolute;
+   left:1vw;
+    height:20vh;
+    overflow-y: scroll;
+}
+#controls>*{
+    text-align:center;
+    width:100%;
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2rem;
+}
+input[type='range'] {
+    overflow: hidden;
+    -webkit-appearance: none;
+    background-color: lightgray;
+    border-radius: 1rem;
+}
+ input[type='range']::-webkit-slider-thumb {
+     width: 10px;
+     -webkit-appearance: none;
+     height: 10px;
+     cursor: ew-resize;
+     background: purple;
+     box-shadow: -80px 0 0 80px purple;
+ }
+ label{
+     color: purple;
+ }
+ #presentation{
+       margin-top: 5%;
+       margin-left: 10%;
+       margin-right: 28%;
+       grid-row: 6;
+       grid-column: 1/4;
+       font-size: large;
+       color:white;
+ }
+ #controlsLabel{
+      margin-top: 5%;
+     text-align: left;
+      font-size: large;
+      color:rgb(121, 236, 183);
+ }
+
+ /* width */
+ ::-webkit-scrollbar {
+     width: 1vw;
+ }
+
+ /* Track */
+ ::-webkit-scrollbar-track {
+     background: #f1f1f1;
+     border-radius: 1rem;
+ }
+
+
+ ::-webkit-scrollbar-thumb {
+     background: purple;
+     border-radius: 1rem;
+ }
