@@ -1,0 +1,36 @@
+{% extends '../layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/updateAuditor.css">
+{% endblock %}
+
+
+{% block content %}
+
+{% include '../components/navigation/navigation.html' %}
+
+  <div class="container">    
+
+    <h1>modification des données</h1>
+
+    <form action="/updateAditor/pseudo" method="post">
+        <label for="pseudo">Pseudo</label>
+        <div class="pseudo">Guitare</label>
+        <input type="submit" id="submit" placeholder="Pseudo" value="Modifier" />
+    </form>
+
+    <form action="/updateAditor/mail" method="post">
+        <label for="mail">Adresse Mail</label>
+        <div class="mail">mail.mail@gmail.com</label>
+        <input type="submit" id="submit" placeholder="Mail" value="Modifier" />
+    </form>
+
+    <form action="/updateAditor/password" method="post">
+        <input type="submit" id="submit" placeholder="Password" value="Modifier Mot de passe" />
+    </form>
+
+  </div>
+
+{% endblock %}
