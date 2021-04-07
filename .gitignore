@@ -105,3 +105,4 @@ dist
 
 /mysql
 /mysql_data
+package-lock.json
