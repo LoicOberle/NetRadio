@@ -9,19 +9,24 @@
 
 {% block content %}
 
+{% include '../components/navigation/navigation.html' %}
+
   <div class="container">
 
     <h1 class="components_main-title">{{presentator}} est en live</h1>
 
-    <h2>{{liveTitle}}</h2>
+    <h2 class="title">{{liveTitle}}</h2>
 
     	
     <progress value="150" max="200">50%</progress> 
 
 
-    <button id="playButton">Play/Pause</button>
+    <meta  name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <button id="playButton">
+      <img id="imgButton" src="/images/playIcon.png" alt="">
+    </button>
 
-    <p>{{livePresentation}}</p>
+    <p cl>{{LivePresentation}}</p>
 
   </div>
 

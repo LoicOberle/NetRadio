@@ -1,0 +1,116 @@
+.navigation {
+    width: 100vw;
+    height: 80px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: space-between;
+    background-color: #202020;
+    padding: 0 5%;
+}
+
+.navigation_logo {
+    margin-top: 10px;
+    height: 60px;
+}
+
+#navigation_hamburgerMenu{
+    width: 40px;
+    height: 40px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#navigation_hamburgerMenu span {
+    display: block;
+    width: 100%;
+    height: 5px;
+    border-radius: 30px;
+    background-color: #fff;
+
+}
+
+#navigation_menu {
+    position: absolute;
+    right: 0;
+    height: calc(100vh - 80px);
+    background-color: #252525;
+    width: 100%;
+    color: #fff;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+#navigation_menu ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    height: 50%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+}
+
+#navigation_menu ul:first-child {
+    justify-content: flex-start;
+}
+
+#navigation_menu ul:last-child {
+    justify-content: flex-end;
+}
+
+#navigation_menu ul li{
+    margin: 2% 0;
+    height: 30px;
+    line-height: 30px;
+}
+
+#navigation_menu ul li a{
+    color: #fff
+}
+
+#navigation_menu ul li a:hover{
+    color: #9741F7;
+    text-decoration: none;
+}
+
+
+.navigation_menu_purpleButton {
+    background-color: #9741F7;
+    width: auto;
+    border-radius: 15px;
+    margin: auto;
+    padding: 10px 20px;
+}
+
+.navigation_menu_purpleButton:hover {
+    background-color: #00FFBE;
+    color: #000;
+}
+
+.navigation_menu_greenButton:hover {
+    background-color: #9741F7;
+    color: #fff;
+}
+
+.navigation_menu_greenButton {
+    background-color: #00FFBE;
+    width: auto;
+    border-radius: 15px;
+    margin: auto;
+    padding: 10px 20px;
+    color: #000;
+}
+
+@media (min-width: 800px) {
+    #navigation_menu {
+        width: 220px;
+        float: right;
+        height: calc(100vh - 80px);
+    }
+}
