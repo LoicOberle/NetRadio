@@ -142,7 +142,9 @@ navigator.mediaDevices.getUserMedia({
   
   musicStopButton.addEventListener('click', () => {
     audioElement.pause()
+    let temp=audioElement.src
     audioElement.src = ""
+    audioElement.src=temp
      source2.disconnect(musicGainNode)
     // musicGainNode.disconnect(context.destination)
   })
