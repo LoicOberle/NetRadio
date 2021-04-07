@@ -5,9 +5,10 @@ mySocket.on("connection", () => {
 
 mySocket.emit("presenter","")
 //DOM Elements
-const audioElement = document.getElementById("track");
+var audioElement;
 const playTrackButton = document.getElementById("playFile")
 const musicTestButton = document.getElementById("musicTest")
+const musicStopButton = document.getElementById("stopMusic")
 const start = document.getElementById("start")
 const st = document.getElementById("stop")
 const distortionSlider=document.getElementById("distortion")
@@ -39,7 +40,36 @@ start.disabled = false
 var serialize = serialijse.serialize;
 var deserialize = serialijse.deserialize;
 var play = false
-var chunks=[]
+var chunks = []
+
+
+fetch('http://localhost:19080/user/songList')
+  .then(
+    function(response) {
+      response.json().then((data) => {
+        console.log(data);
+        let liste = document.createElement("select")
+        liste.id="songList"
+        for (let i = 0; i < data.length; i++){
+          let audio = document.createElement("audio");
+          let option = document.createElement("option")
+          option.value = "audio" + i
+          option.innerHTML = data[i]
+          liste.append(option)
+          audio.id = 'audio' + i
+          audio.src = "/sounds/" + data[i]
+          audio.crossOrigin="anonymous"
+          document.getElementById("controls").append(audio)
+        }
+        document.getElementById("controls").append(liste)
+    })
+    }
+  )
+  .catch(function(err) {
+    console.log('Fetch Error :-S', err);
+  });
+
+
 navigator.mediaDevices.getUserMedia({
     video: false,
     audio: true
@@ -55,7 +85,7 @@ navigator.mediaDevices.getUserMedia({
     var destinationNode = context.createMediaStreamDestination()
     var recorder=new MediaRecorder(destinationNode.stream)
 
-    const source2 = context.createMediaElementSource(audioElement);
+   var source2;//= context.createMediaElementSource(audioElement);
     var source = context.createMediaStreamSource(stream)
 
 
@@ -81,15 +111,25 @@ navigator.mediaDevices.getUserMedia({
     //source.connect(scriptNode)
     source.connect(distorsionNode);
     distorsionNode.connect(gainNode)
-     guestGainNode.connect(scriptNode)
+   //  guestGainNode.connect(scriptNode)
     gainNode.connect(scriptNode)
     //scriptNode.connect(destinationNode)
-  source2.connect(musicGainNode)
+ // source2.connect(musicGainNode)
   musicGainNode.connect(musicScriptNode)
 
     //Permet de tester la musique pour ajuster le volume etc
-    musicTestButton.addEventListener("click", () => {
-        
+  musicTestButton.addEventListener("click", () => {
+    console.log('test');
+      console.log('playing sound '+document.getElementById("songList").value);
+    audioElement = document.getElementById(document.getElementById("songList").value);
+
+    if (source2==undefined) {
+    source2 = context.createMediaElementSource(audioElement);
+      }
+     
+ 
+    
+       source2.connect(musicGainNode)
         musicGainNode.connect(context.destination)
         
         audioElement.play()
@@ -100,7 +140,15 @@ navigator.mediaDevices.getUserMedia({
         }
     })
   
+  musicStopButton.addEventListener('click', () => {
+    audioElement.pause()
+    audioElement.src = ""
+     source2.disconnect(musicGainNode)
+    // musicGainNode.disconnect(context.destination)
+  })
   
+  ///////////////Gestion de la voix des invités///////////////////////////
+  /*
   mySocket.on("guestStream1", (packet) => {
    // console.log("message reçu de guest1");
      buffer1 = context.createBuffer(1, bufferSize, sampleRate)
@@ -203,12 +251,21 @@ navigator.mediaDevices.getUserMedia({
   
     bufferSource10.start()
     })
-  
+    */
+  /////////////////////////////////////////////////////
   
     playTrackButton.addEventListener("click", () => {
         
         //source.disconnect(scriptNode)         -> Ligne a decommenter si on veut couper le micro pendant que la musique joue
-       
+        audioElement = document.getElementById(document.getElementById("songList").value);
+
+    if (source2==undefined) {
+    source2 = context.createMediaElementSource(audioElement);
+      }
+     
+ 
+    
+       source2.connect(musicGainNode)
       musicGainNode.connect(musicScriptNode)
       musicScriptNode.connect(context.destination)
         musicGainNode.connect(destinationNode)
@@ -257,11 +314,11 @@ navigator.mediaDevices.getUserMedia({
        if (feedBackBox.checked) {
            gainNode.connect(context.destination);
          musicGainNode.connect(context.destination)
-         guestGainNode.connect(context.destination)
+         //guestGainNode.connect(context.destination)
        } else {
            gainNode.disconnect(context.destination);
             musicGainNode.disconnect(context.destination)
-             guestGainNode.disconnect(context.destination)
+           //  guestGainNode.disconnect(context.destination)
         }
     })
 
@@ -277,21 +334,28 @@ navigator.mediaDevices.getUserMedia({
         console.log(musicGainNode.gain.value);
         
     })
-      guestGainSlider.addEventListener("input", () => {
+     /* guestGainSlider.addEventListener("input", () => {
         
         guestGainNode.gain.value = guestGainSlider.value / 100.0
        // console.log(guestGainSlider.gain.value);
         
-    })
+    })*/
 
-    st.addEventListener("click", () => {
+  st.addEventListener("click", () => {
+      console.log('stopping recording');
         st.disabled = true
         playTrackButton.disabled = true
         start.disabled = false
-        scriptNode.disconnect(context.destination);
-        musicScriptNode.disconnect(context.destination);
+    scriptNode.disconnect(context.destination);
+    try {
+      musicScriptNode.disconnect(context.destination);
+         musicGainNode.disconnect(destinationNode)
+    } catch (err) {
+      
+    }
+       
          gainNode.disconnect(destinationNode)
-        musicGainNode.disconnect(destinationNode)
+     
         
          recorder.stop()
        //stopRecording()
@@ -351,7 +415,7 @@ function blobToDataURL(blob, callback) {
 const sendAudioFile = (file,name) => {
   const formData = new FormData();
   formData.append('audioBlob', file,name+".mp3");
-  return fetch('http://localhost:5000/audioUpload', {
+  return fetch('http://localhost:19080/audioUpload', {
     method: 'POST',
       body: formData,
      headers: {
