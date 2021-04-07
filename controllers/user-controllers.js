@@ -61,3 +61,8 @@ exports.profil = async(req, res, next) => {
         password : "keduma123"
     });
 }
+
+exports.makeLive = async(req, res, next) => {
+    
+    res.render('containers/createLive');
+}

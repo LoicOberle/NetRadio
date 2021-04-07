@@ -9,4 +9,10 @@ router.get('/:username/profil', userControllers.profil);
 
 //router.post('/:username/profil/valid', userControllers.profilValid);
 
+router.get('/:username/makelive', userControllers.makeLive);
+
+//router.post('/:username/makelive/valid', userControllers.makeLiveValid);
+
+
+
 module.exports = router;
