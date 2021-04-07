@@ -52,3 +52,12 @@ exports.userLive = async (req, res, next) => {
         jsFile: "../../js"
     })
 }
+
+exports.profil = async(req, res, next) => {
+    
+    res.render('containers/updateAuditor', {
+        pseudo: "Keduma", 
+        mail: "Keduma@gmail.com",
+        password : "keduma123"
+    });
+}

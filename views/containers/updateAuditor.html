@@ -13,22 +13,26 @@
 
   <div class="container">    
 
-    <h1>modification des données</h1>
+    <h1>Modification profil</h1>
 
-    <form action="/updateAditor/pseudo" method="post">
-        <label for="pseudo">Pseudo</label>
-        <div class="pseudo">Guitare</label>
-        <input type="submit" id="submit" placeholder="Pseudo" value="Modifier" />
-    </form>
+    <form action="/:username/profil/valid" method="post">
+        <div class="under_form">
+            <label for="pseudo">Pseudo</label>
+            <input name="username" type="text"  id="username" placeholder="Pseudo" value={{pseudo}} />
+        </div>
 
-    <form action="/updateAditor/mail" method="post">
-        <label for="mail">Adresse Mail</label>
-        <div class="mail">mail.mail@gmail.com</label>
-        <input type="submit" id="submit" placeholder="Mail" value="Modifier" />
-    </form>
+        <div class="under_form">
+            <label for="mail">Adresse Mail</label>
+            <input name="mail" type="mail" id="mail" placeholder="Adresse mail" value={{mail}} />
+        </div>
 
-    <form action="/updateAditor/password" method="post">
-        <input type="submit" id="submit" placeholder="Password" value="Modifier Mot de passe" />
+        <div class="under_form">
+            <label for="password">Mot de passe</label>
+            <input name="password" type="password" id="password" placeholder="Mot de passe" value={{password}} />
+        </div>
+
+        <input type="submit" id="submit" placeholder="personal_data" value="Modifier" />
+        
     </form>
 
   </div>
