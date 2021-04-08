@@ -9,7 +9,7 @@ fetch('/user/podcastList')
                 let card = document.createElement("div")
           card.classList.add("card")
               let title = document.createElement("p")
-              title.innerHTML = data[i]
+              title.innerHTML = data[i].substring(0,data[i].length-4)
               card.append(title)
           let audio = document.createElement("audio");
           audio.id = 'audio' + i

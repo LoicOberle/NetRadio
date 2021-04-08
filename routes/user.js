@@ -19,7 +19,7 @@ router.get('/:username/profil', userControllers.profil);
 
 router.get('/:username/makelive', userControllers.makeLive);
 
-//router.post('/:username/makelive/valid', userControllers.makeLiveValid);
+router.post('/:username/makelive/valid', userControllers.makeLiveValid);
 
 
 

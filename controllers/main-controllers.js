@@ -1,16 +1,16 @@
 const express  = require('express');
-
+const bdd = require("../utils/DBclients");
 DOMParser = require('xmldom').DOMParser;
 
 exports.index = async (req, res, next) => {
-   /* req.session.reload((err) => {
-        console.log(err);
-    })*/
+
+     let query = "SELECT * from Broadcast INNER JOIN User On Broadcast.id_presenter=User.idUser WHERE idBroadcast=(SELECT max(idBroadcast) FROM Broadcast);"
+    let data = await bdd.query(query)
     console.log(req.session);
     res.render('containers/index', {
         username:req.session.username?req.session.username:"",
-        presentator: 'Keduma', 
-        liveTitle: 'Overwatch un dead game ?',
-        LivePresentation : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at dolor ac massa lobortis dignissim. Duis dictum tristique est non varius. Proin sodales aliquet felis, eu tempus dolor faucibus id. Vivamus vitae dui ut eros posuere gravida. Quisque arcu sem, luctus sit amet eros et, placerat iaculis tortor. Duis sed nunc nec justo posuere eleifend vel viverra turpis. Morbi arcu dolor, maximus euismod mi sit amet, accumsan congue est. Sed malesuada hendrerit magna, a pulvinar sem dapibus in. Pellentesque fermentum arcu id est posuere, sit amet consequat purus pulvinar. Donec non ligula tristique, ullamcorper enim non, vestibulum dui.'
+        presentator: data[0].pseudo, 
+        liveTitle: data[0].title,
+        LivePresentation : data[0].description
     })
 }

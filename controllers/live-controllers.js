@@ -1,13 +1,15 @@
 const express  = require('express');
-
+const bdd = require("../utils/DBclients");
 DOMParser = require('xmldom').DOMParser;
 
 exports.live = async(req, res, next) => {
-
+    let query = "SELECT * from Broadcast INNER JOIN User On Broadcast.id_presenter=User.idUser INNER JOIN Slot On Broadcast.idBroadcast=Slot.id_broadcast WHERE idBroadcast=(SELECT max(idBroadcast) FROM Broadcast);"
+    let data = await bdd.query(query)
+    console.log(data);
     res.render('containers/directLive', {
-        announcer: 'KEDUMA',
-        liveTitle: 'Overwatch un dead Game ?',
-        LivePresentation : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at dolor ac massa lobortis dignissim. Duis dictum tristique est non varius. Proin sodales aliquet felis, eu tempus dolor faucibus id. Vivamus vitae dui ut eros posuere gravida. Quisque arcu sem, luctus sit amet eros et, placerat iaculis tortor. Duis sed nunc nec justo posuere eleifend vel viverra turpis. Morbi arcu dolor, maximus euismod mi sit amet, accumsan congue est. Sed malesuada hendrerit magna, a pulvinar sem dapibus in. Pellentesque fermentum arcu id est posuere, sit amet consequat purus pulvinar. Donec non ligula tristique, ullamcorper enim non, vestibulum dui.',
-        horaire: '14h00 - 20h00'
+        announcer: data[0].pseudo,
+        liveTitle: data[0].title,
+        LivePresentation: data[0].description,
+        horaire: data[0].date_start.substring(11)+" - "+data[0].date_end.substring(11)
     })
 }
