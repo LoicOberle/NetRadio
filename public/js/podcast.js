@@ -1,22 +1,25 @@
-fetch('http://localhost:19080/user/podcastList')
+fetch('/user/podcastList')
   .then(
     function(response) {
       response.json().then((data) => {
         console.log(data);
-        let liste = document.createElement("select")
-        liste.id="songList"
-        for (let i = 0; i < data.length; i++){
+        
+      
+          for (let i = 0; i < data.length; i++){
+                let card = document.createElement("div")
+          card.classList.add("card")
+              let title = document.createElement("p")
+              title.innerHTML = data[i]
+              card.append(title)
           let audio = document.createElement("audio");
-          let option = document.createElement("option")
-          option.value = "audio" + i
-          option.innerHTML = data[i]
-          liste.append(option)
           audio.id = 'audio' + i
-          audio.src = "/sounds/" + data[i]
-          audio.crossOrigin="anonymous"
-          document.getElementById("container").append(audio)
+          audio.src = "/podcasts/" + data[i]
+            audio.crossOrigin = "anonymous"
+              audio.controls = true;
+              card.append(audio)
+          document.getElementById("podcastList").append(card)
         }
-        document.getElementById("container").append(liste)
+       
     })
     }
   )

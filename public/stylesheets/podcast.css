@@ -41,19 +41,61 @@ input {
     /*background-color: red;*/
 }
 
-input[type=submit] {
-    width: 20rem;
-    background-color: #9741f7;
-    border-color: #9741f7;
-    color: white;
-    margin-top: 50px;
-}
-
-input[type=submit]:hover {
-    background-color: #a661f5;
-    border-color: #a661f5;
-}
 
 #desciption {
     width: 50rem;
 }
+.card{
+    background-color: rgb(100,100,100);
+    margin-bottom: 1em;
+}
+.card>p{
+    color:#00FFBE;
+    font-weight: bold;
+    font-size: 2em;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+audio::-webkit-media-controls-panel{
+    -webkit-appearance: none;
+    background-color:rgb(100, 100, 100);
+    border:none;
+    
+}
+
+audio::-webkit-media-controls-mute-button {
+    background-color: purple;
+    border-radius: 50rem;
+}
+
+audio::-webkit-media-controls-play-button {
+    background-color: purple;
+    border-radius: 50rem;
+}
+
+audio::-webkit-media-controls-timeline-container {}
+
+audio::-webkit-media-controls-current-time-display {
+    background-color: purple;
+  
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+    background-color: purple;
+   
+}
+
+audio::-webkit-media-controls-timeline {
+    background-color: purple;
+    border-radius: 50rem;
+}
+
+audio::-webkit-media-controls-volume-slider-container {
+    background-color: purple;
+    border-radius: 50rem;
+}
+
+audio::-webkit-media-controls-volume-slider {
+    background-color: purple;
+    border-radius: 50rem;
+}
+

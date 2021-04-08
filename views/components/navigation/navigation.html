@@ -29,13 +29,13 @@
         <li><a href="/podcasts">PODCAST</a></li>
     </ul>
     <ul>
-        <li><a href="/rights">DROITS</a></li>
-        <li><a href="/askrights">DEMANDES DE DROITS</a></li>
-        <li><a href="/user">USER</a></li>
-        <li><a href="/user/{{username}}/makeLive"><span class="navigation_menu_greenButton">CREATION LIVE</span></a></li>
-        <li><a href="/login">SE CONNECTER</a></li>
-        <li><a href="/logout"><span class="navigation_menu_purpleButton">SE DECONNECTER</span></a></li>
-        <li><a href="/signup"><span class="navigation_menu_purpleButton">S'INSCRIRE</span></a></li>
+        {% if !username==undefined %}<li><a href="/rights">DROITS</a></li>{% endif %}
+       {% if !username==undefined %} <li><a href="/askrights">DEMANDES DE DROITS</a></li>{% endif %}
+        {% if !username==undefined %}<li><a href="/user/{{username}}/profil">USER</a></li>{% endif %}
+        {% if !username==undefined %}<li><a href="/user/{{username}}/makeLive"><span class="navigation_menu_greenButton">CREATION LIVE</span></a></li>{% endif %}
+        {% if username==undefined %}<li><a href="/login">SE CONNECTER</a></li>{% endif %}
+        {% if !username==undefined %}<li><a href="/logout"><span class="navigation_menu_purpleButton">SE DECONNECTER</span></a></li>{% endif %}
+         {% if username==undefined %}<li><a href="/signup"><span class="navigation_menu_purpleButton">S'INSCRIRE</span></a></li>{% endif %}
     </ul>
 </nav>
 
