@@ -22,6 +22,7 @@ const indexRouter = require('./routes/main');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const userRouter = require('./routes/user');
+const liveRouter = require('./routes/live');
 const { Server } = require('http');
 
 
@@ -116,7 +117,7 @@ app.use('/login', loginRouter);
 
 app.use('/signup', registerRouter);
 
-// app.use('/live', nameRouter);
+app.use('/live', liveRouter);
 
 // app.use('/schedule', nameRouter);
 
@@ -128,7 +129,7 @@ app.use('/user', userRouter);
 
 app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
     console.log(req.file);
-  let uploadLocation = __dirname + '/public/podcasts/' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
+  let uploadLocation = __dirname + './public/podcasts/' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
 
   fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
   res.sendStatus(200); //send back that everything went ok
