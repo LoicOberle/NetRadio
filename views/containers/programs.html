@@ -1,0 +1,40 @@
+{% extends '../layout.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/programs.css">
+<link rel="stylesheet" href="/stylesheets/timetable.css">
+<link rel="stylesheet" href="/stylesheets/style.css">
+{% endblock %}
+
+
+{% block content %}
+
+{% include '../components/navigation/navigation.html' %}
+
+  <div class="container">    
+
+    <h1>PROGRAMMATION</h1>
+
+    <div class="timetable"></div>
+
+    <script src="js/timetable.js"></script>
+    <script>
+        var timetable = new Timetable()
+        timetable.setScope(9,3)
+        timetable.setLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'])
+        timetable.addEvent('Lomba lari', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+        timetable.addEvent('Lomba makan', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+        timetable.addEvent('Srapan', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+        timetable.addEvent('Balapan', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+        timetable.addEvent('Lomba naik', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+        timetable.addEvent('Lomba larikencang', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+        timetable.addEvent('Lomba marathon', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+
+        var renderer = new Timetable.Renderer()
+        renderer.draw('.timetable')
+    </script>
+  </div>
+
+{% endblock %}
