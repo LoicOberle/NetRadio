@@ -2,6 +2,7 @@
 <link rel="stylesheet" href="/stylesheets/navigation/navigation.css">
 {% endblock %}
 
+
 {% block navigation %}
 
 <div class="navigation">
@@ -31,7 +32,7 @@
         <li><a href="/rights">DROITS</a></li>
         <li><a href="/askrights">DEMANDES DE DROITS</a></li>
         <li><a href="/user">USER</a></li>
-        <li><a href="/user"><span class="navigation_menu_greenButton">CREATION LIVE</span></a></li>
+        <li><a href="/user/{{username}}/makeLive"><span class="navigation_menu_greenButton">CREATION LIVE</span></a></li>
         <li><a href="/login">SE CONNECTER</a></li>
         <li><a href="/logout"><span class="navigation_menu_purpleButton">SE DECONNECTER</span></a></li>
         <li><a href="/signup"><span class="navigation_menu_purpleButton">S'INSCRIRE</span></a></li>

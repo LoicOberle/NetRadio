@@ -1,4 +1,6 @@
 const express  = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const bdd = require("../utils/DBclients");
 
@@ -9,19 +11,63 @@ exports.login = async(req, res, next) => {
 }
 
 exports.validLogin = async (req, res, next) => {
-    const username = req.query.username;
-    const password = req.query.password;
-
-    console.log("ValidLogin + ", username);
-    console.log("ValidLogin + ", password);
+    const {username, password} = req.body;
 
     try {
-        // let sqlSignIn = await bdd.query("SELECT * FROM ")
+        let existingUser = await bdd.query("SELECT * FROM User WHERE pseudo = '" + username + "';");
     } catch(err) {
-        res.send(err);
+        const error = new HttpError(
+            'Loggin in failed, please try again later.',
+            500
+        );
+        return res.send(error);
     }
 
-    res.redirect('/');
+    if(!existingUser) {
+        const error = new HttpError(
+            'Invalid credentials, could not log you in.',
+            403
+        );
+        return next(error);
+    };
+
+    let isValidPassword;
+    try {
+        isValidPassword = await bcrypt.compare(password, existingUser.password);
+    } catch (err) {
+      const error = new HttpError('Could not log you in', 500);
+      return res.send(error)
+    }
+
+    if (!isValidPassword) {
+      const error = new HttpError(
+        'Invalid credentials, could not log you in.',
+        403
+      );
+      return res.send(error);
+    }
+
+    let token;
+    try {
+        token = jwt.sign(
+            {userId: existingUser.id, email: existingUser.email},
+            process.env.JWT_KEY,
+            {expiresIn: '1h'}
+        );
+    } catch (err) {
+        const error = new HttpError(
+        'Logging in failed, please try again later.',
+        500
+        );
+        return next(error);
+    }
+
+    res.json({
+        userId: existingUser.id,
+        email: existingUser.email,
+        token: token,
+        redirecturl: '/user/' + username
+    });
 }
 
 exports.register = async(req, res, next) => {
