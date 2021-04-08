@@ -29,8 +29,8 @@
         <li><a href="/podcasts">PODCAST</a></li>
     </ul>
     <ul>
-        {% if !username==undefined %}<li><a href="/rights">DROITS</a></li>{% endif %}
-       {% if !username==undefined %} <li><a href="/askrights">DEMANDES DE DROITS</a></li>{% endif %}
+       <!-- {% if !username==undefined %}<li><a href="/rights">DROITS</a></li>{% endif %}-->
+      <!-- {% if !username==undefined %} <li><a href="/askrights">DEMANDES DE DROITS</a></li>{% endif %}-->
         {% if !username==undefined %}<li><a href="/user/{{username}}/profil">USER</a></li>{% endif %}
         {% if !username==undefined %}<li><a href="/user/{{username}}/makeLive"><span class="navigation_menu_greenButton">CREATION LIVE</span></a></li>{% endif %}
         {% if username==undefined %}<li><a href="/login">SE CONNECTER</a></li>{% endif %}

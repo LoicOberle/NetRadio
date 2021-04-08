@@ -1,13 +1,22 @@
 const express = require('express');
 const app = express();
+const https = require('https');
+const http=require("http")
 var session = require('express-session')
-let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 const multer  = require('multer') //use multer to upload blob data
 const upload = multer(); // set multer to be the upload variable (just like express, see above ( include it, then use it/set it up))
 const fs = require('fs');
 let swig = require('swig');
 const bodyparser = require("body-parser");
+var key = fs.readFileSync('certificats/selfsigned.key');
+var cert = fs.readFileSync('certificats/selfsigned.crt');
+var options = {
+  key: key,
+  cert: cert
+};
+let server = https.createServer(options,app);
+
 
 const LOCAL_PORT = process.env.LOCAL_PORT;
 
@@ -161,6 +170,6 @@ app.get('/guest', (req, res) => {
     })
 });
 
-http.listen(LOCAL_PORT,  () => {
+server.listen(LOCAL_PORT,  () => {
     console.log(`Server started on port : ` + LOCAL_PORT );
 });

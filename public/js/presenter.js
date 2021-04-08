@@ -69,7 +69,7 @@ fetch('/user/songList')
     console.log('Fetch Error :-S', err);
   });
 
-
+console.log(navigator.mediaDevices);
 navigator.mediaDevices.getUserMedia({
     video: false,
     audio: true
