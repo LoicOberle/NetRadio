@@ -30,7 +30,9 @@ const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const userRouter = require('./routes/user');
 const podcastRouter = require('./routes/podcast');
+const programRouter = require('./routes/program');
 const liveRouter = require('./routes/live');
+
 const { Server } = require('http');
 
 
@@ -129,7 +131,9 @@ app.use('/live', liveRouter);
 
 // app.use('/schedule', nameRouter);
 
- app.use('/podcasts', podcastRouter);
+app.use('/podcasts', podcastRouter);
+
+app.use('/programs', programRouter);
 
 app.use('/user', userRouter);
 
