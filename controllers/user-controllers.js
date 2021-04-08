@@ -139,11 +139,13 @@ exports.userLive = async (req, res, next) => {
 }
 
 exports.profil = async(req, res, next) => {
-    
+    let query = 'SELECT * FROM User WHERE pseudo="' + req.session.username + '"'
+    let data= await bdd.query(query)
     res.render('containers/updateAuditor', {
-        pseudo: "Keduma", 
-        mail: "Keduma@gmail.com",
-        password : "keduma123"
+        username:req.session.username?req.session.username:"",
+        pseudo: data[0].pseudo, 
+        mail: data[0].mail,
+        password : data[0].password
     });
 }
 

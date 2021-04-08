@@ -7,6 +7,7 @@ exports.live = async(req, res, next) => {
     let data = await bdd.query(query)
     console.log(data);
     res.render('containers/directLive', {
+        username:req.session.username?req.session.username:"",
         announcer: data[0].pseudo,
         liveTitle: data[0].title,
         LivePresentation: data[0].description,
