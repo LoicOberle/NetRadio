@@ -11,63 +11,79 @@ exports.login = async(req, res, next) => {
 }
 
 exports.validLogin = async (req, res, next) => {
-    const {username, password} = req.body;
-
+    const { username, password } = req.body;
+    console.log(req.body);
+    let existingUser;
     try {
-        let existingUser = await bdd.query("SELECT * FROM User WHERE pseudo = '" + username + "';");
+        existingUser = await bdd.query("SELECT * FROM User WHERE pseudo = '" + username + "';");
     } catch(err) {
-        const error = new HttpError(
+        /*const error = new HttpError(
             'Loggin in failed, please try again later.',
             500
-        );
-        return res.send(error);
+        );*/
+        return res.status(500).send({message:'Loggin in failed, please try again later.'});
     }
 
     if(!existingUser) {
-        const error = new HttpError(
+       /* const error = new HttpError(
             'Invalid credentials, could not log you in.',
             403
         );
-        return next(error);
+        */
+        return res.status(403).send({ message: 'Invalid credentials, could not log you in.' })
     };
-
+   // console.log(existingUser[0]);
     let isValidPassword;
     try {
-        isValidPassword = await bcrypt.compare(password, existingUser.password);
+        //isValidPassword = await bcrypt.compare(password, existingUser[0].password);
+        isValidPassword=password==existingUser[0].password
     } catch (err) {
-      const error = new HttpError('Could not log you in', 500);
-      return res.send(error)
+        console.log(err);
+      //const error = new HttpError('Could not log you in', 500);
+        //return res.send(error)
+        return res.status(500).send({message:'Could not log you in'});
     }
 
     if (!isValidPassword) {
-      const error = new HttpError(
+     /* const error = new HttpError(
         'Invalid credentials, could not log you in.',
         403
-      );
-      return res.send(error);
+      );*/
+      return res.status(403).send({message:'Invalid credentials, could not log you in.'});
     }
-
+   
     let token;
     try {
         token = jwt.sign(
-            {userId: existingUser.id, email: existingUser.email},
+            {userId: existingUser[0].id, email: existingUser[0].email},
             process.env.JWT_KEY,
             {expiresIn: '1h'}
         );
     } catch (err) {
-        const error = new HttpError(
+       
+       /* const error = new HttpError(
         'Logging in failed, please try again later.',
         500
         );
         return next(error);
+        */
+        return next.status(500).send({message:'Loggin in failed, please try again later.'});
     }
 
-    res.json({
-        userId: existingUser.id,
-        email: existingUser.email,
+  /*  res.json({
+        userId: existingUser[0].id,
+        email: existingUser[0].email,
         token: token,
         redirecturl: '/user/' + username
-    });
+    });*/
+    if (!req.session.username) {
+        req.session.username = username
+        console.log(req.session);
+        req.session.save((err) => {
+        console.log(err);
+    })
+   }
+    res.redirect("/")
 }
 
 exports.register = async(req, res, next) => {

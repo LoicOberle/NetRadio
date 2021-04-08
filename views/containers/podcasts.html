@@ -1,0 +1,24 @@
+{% extends '../layout.html' %}
+
+{% block title %}Podcasts{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/podcast.css">
+{% endblock %}
+
+
+{% block content %}
+
+{% include '../components/navigation/navigation.html' %}
+
+  <div class="container">    
+
+    <h1>Liste des podcasts</h1>
+    <ul id='podcastList'></ul>
+    
+  </div>
+
+{% endblock %}
+{% block script %}
+  <script src="/js/podcast.js"></script>
+{% endblock %}

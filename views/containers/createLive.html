@@ -15,7 +15,7 @@
 
     <h1>CRÉER UN LIVE</h1>
 
-    <form action="/:username/makelive/valid" method="post">
+    <form action="/{{username}}/makelive/valid" method="post">
         <div class="under_form">
             <label for="date_start">Date début (Exemple: 07/04/2021-15:00)</label>
             <input name="date_start" type="text"  id="date_start" placeholder="jj/mm/aaaa-hh:mm" />
@@ -29,7 +29,7 @@
         </div>
 
         <div class="under_form">
-            <label for="desciption">Desciption</label>
+            <label for="description">Description</label>
             <input name="desciption" type="text" id="desciption" placeholder="Ma description" />
         </div>
 

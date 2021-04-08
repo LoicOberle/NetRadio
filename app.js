@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+var session = require('express-session')
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 const multer  = require('multer') //use multer to upload blob data
@@ -15,13 +16,20 @@ let websockets = [];
 swig = new swig.Swig();
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
-// app.use(bodyparser.urlencoded({extend: false}));
+app.use(bodyparser.urlencoded({extend: false}));
 app.use(bodyparser.json());
 
+ app.use(session({
+        secret:"secret",
+  resave: false,
+  saveUninitialized: true,
+  //cookie: { secure: true }
+}))
 const indexRouter = require('./routes/main');
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
 const userRouter = require('./routes/user');
+const podcastRouter = require('./routes/podcast');
 const liveRouter = require('./routes/live');
 const { Server } = require('http');
 
@@ -121,15 +129,20 @@ app.use('/live', liveRouter);
 
 // app.use('/schedule', nameRouter);
 
-// app.use('/podcast', nameRouter);
+ app.use('/podcasts', podcastRouter);
 
 app.use('/user', userRouter);
 
-
+app.get("/logout", (req, res) => {
+    if (req.session.username) {
+        req.session.username=undefined
+    }
+    res.redirect("/")
+})
 
 app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
     console.log(req.file);
-  let uploadLocation = __dirname + './public/podcasts/' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
+  let uploadLocation = './public/podcasts/' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
 
   fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
   res.sendStatus(200); //send back that everything went ok

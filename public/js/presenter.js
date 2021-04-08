@@ -43,7 +43,7 @@ var play = false
 var chunks = []
 
 
-fetch('http://localhost:19080/user/songList')
+fetch('/user/songList')
   .then(
     function(response) {
       response.json().then((data) => {
@@ -417,7 +417,7 @@ function blobToDataURL(blob, callback) {
 const sendAudioFile = (file,name) => {
   const formData = new FormData();
   formData.append('audioBlob', file,name+".mp3");
-  return fetch('http://localhost:19080/audioUpload', {
+  return fetch('/audioUpload', {
     method: 'POST',
       body: formData,
      headers: {
