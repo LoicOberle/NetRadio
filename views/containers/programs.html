@@ -4,8 +4,10 @@
 
 {% block stylesheet %}
 <link rel="stylesheet" href="/stylesheets/programs.css">
-<link rel="stylesheet" href="/stylesheets/timetable.css">
-<link rel="stylesheet" href="/stylesheets/style.css">
+<link rel="stylesheet" href="/stylesheets/timetablejs.css" type="text/css">
+<link rel="stylesheet" href="/stylesheets/demo.css" type="text/css">
+
+
 {% endblock %}
 
 
@@ -18,23 +20,166 @@
     <h1>PROGRAMMATION</h1>
 
     <div class="timetable"></div>
-
-    <script src="js/timetable.js"></script>
     <script>
-        var timetable = new Timetable()
-        timetable.setScope(9,3)
-        timetable.setLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'])
-        timetable.addEvent('Lomba lari', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
-        timetable.addEvent('Lomba makan', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
-        timetable.addEvent('Srapan', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
-        timetable.addEvent('Balapan', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
-        timetable.addEvent('Lomba naik', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
-        timetable.addEvent('Lomba larikencang', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
-        timetable.addEvent('Lomba marathon', 'Jakarta', new Data(2021, 8, 4, 9, 00), new Data(2021, 8, 4, 9, 00), { url: '#'})
+        var tabProgram = []
 
-        var renderer = new Timetable.Renderer()
-        renderer.draw('.timetable')
     </script>
+
+
+    {% for emission in tab_data %}
+    <script>
+        tabProgram.push({
+            "title":"{{emission.title}}",
+            "date_start":"{{emission.date_start}}",
+            "date_end":"{{emission.date_end}}"
+        })
+    </script>
+
+    {% endfor %}
+
+
+    <script src="/js/timetable.js"></script>
+    <script>
+        //-----------------------------Jours de la semaine-----------------------------
+        var lundi = new Date();
+        var day = lundi.getDay() || 7;
+        if( day !== 1 )
+        lundi.setHours(-24 * (day - 1));
+        
+        var mardi = new Date();
+        var day = mardi.getDay() || 7;
+        if( day !== 2 )
+        mardi.setHours(-24 * (day - 2));
+
+        var mercredi = new Date();
+        var day = mercredi.getDay() || 7;
+        if( day !== 3 )
+        mercredi.setHours(-24 * (day - 3));
+
+        var jeudi = new Date();
+        var day = jeudi.getDay() || 7;
+        if( day !== 4 )
+        jeudi.setHours(-24 * (day - 4));
+
+        var vendredi = new Date();
+        var day = vendredi.getDay() || 7;
+        if( day !== 5 )
+        vendredi.setHours(-24 * (day - 5));
+
+        var samedi = new Date();
+        var day = samedi.getDay() || 7;
+        if( day !== 6 )
+        samedi.setHours(-24 * (day - 6));
+
+        var dimanche = new Date();
+        var day = dimanche.getDay() || 7;
+        if( day !== 7 )
+        dimanche.setHours(-24 * (day - 7));
+
+        //console.log(lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche)
+
+        const options = { day: 'numeric'};
+        lundi_str = lundi.toLocaleDateString('de-DE', options);
+        if(lundi_str.length == 1){ lundi_str = 0 + lundi_str}
+        mardi_str = mardi.toLocaleDateString('de-DE', options);
+        if(mardi_str.length == 1){ mardi_str = 0 + mardi_str}
+        mercredi_str = mercredi.toLocaleDateString('de-DE', options);
+        if(mercredi_str.length == 1){ mercredi_str = 0 + mercredi_str}
+        jeudi_str = jeudi.toLocaleDateString('de-DE', options);
+        if(jeudi_str.length == 1){ jeudi_str = 0 + jeudi_str}
+        vendredi_str = vendredi.toLocaleDateString('de-DE', options);
+        if(vendredi_str.length == 1){ vendredi_str = 0 + vendredi_str}
+        samedi_str = samedi.toLocaleDateString('de-DE', options);
+        if(samedi_str.length == 1){ samedi_str = 0 + samedi_str}
+        dimanche_str = dimanche.toLocaleDateString('de-DE', options);
+        if(dimanche_str.length == 1){ dimanche_str = 0 + dimanche_str}
+        dimanche.setHours(dimanche.getHours() + 23);
+
+        //console.log(lundi_str, mardi_str, mercredi_str, jeudi_str, vendredi_str, samedi_str, dimanche_str)
+
+
+        //-----------------------------CREATION TABLEAU-----------------------------
+
+        var timetable = new Timetable()
+        timetable.setScope(0,23)
+        timetable.addLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'])
+        
+
+        //var donnees = "{{tab_data[0].title}}"
+        //var taille_tab = "{{tab_data.length}}"
+
+        /*for (var i = 0; i < taille_tab; i++){
+            //var title = "{{tab_data[0].title}}"
+            //var start = "{{tab_data[0].date_start}}"
+            //var end = "{{tab_data[0].date_end}}"
+            //tabProgram.push([title, start, end]);
+        }*/
+
+        /*var tabProgram = [
+            //['Emission1', new Date(2021,08,04,7,00), new Date(2021,08,04,8,00)],
+            ['Emission1', "2021-04-05T06:00", "2021-04-05T09:00"], 
+            ['Emission2', "2021-04-08T15:20", "2021-04-08T17:20"], 
+            ['Emission3', "2021-04-09T09:20", "2021-04-09T11:20"], 
+            ['Emission4', "2021-04-11T11:00", "2021-04-11T13:00"]
+        ];*/
+
+        for (var i = 0; i < tabProgram.length; i++){
+
+            const chars_1 = tabProgram[i].date_start.split('') //decoupage date début
+            const chars_2 = tabProgram[i].date_end.split('') //decoupage date fin
+            var soustration = 0
+
+            var mois_str_1 = chars_1[5]
+            mois_str_1 += chars_1[6]
+            mois_str_1 = mois_str_1 - 1
+            var jour_str_1 = chars_1[8]
+            jour_str_1 += chars_1[9]
+            var heure_str_1 = chars_1[11]
+            heure_str_1 += chars_1[12]
+            var minute_str_1 = chars_1[14]
+            minute_str_1 += chars_1[15]
+            var date_debut = new Date(2021, mois_str_1, jour_str_1, heure_str_1, minute_str_1)
+
+            var mois_str_2 = chars_2[5]
+            mois_str_2 += chars_2[6]
+            mois_str_2 = mois_str_2 - 1
+            var jour_str_2 = chars_1[8]
+            jour_str_2 += chars_2[9]
+            var heure_str_2 = chars_2[11]
+            heure_str_2 += chars_2[12]
+            var minute_str_2 = chars_1[14]
+            minute_str_2 += chars_2[15]
+            var date_fin = new Date(2021, mois_str_2, jour_str_2, heure_str_2, minute_str_2)
+
+            //VERIFICATION SI LE LIVE EST DE CETTE SEMAINE
+            if(lundi < date_debut){
+                if(dimanche > date_debut){
+                    if(jour_str_1 == lundi_str){
+                        timetable.addEvent(tabProgram[i].title, 'Lundi', date_debut, date_fin, { url: '#' });
+                    }else if(jour_str_1 == mardi_str){
+                        timetable.addEvent(tabProgram[i].title, 'Mardi', date_debut, date_fin, { url: '#' });
+                    }else if(jour_str_1 == mercredi_str){
+                        timetable.addEvent(tabProgram[i].title, 'Mercredi', date_debut, date_fin, { url: '#' });
+                    }else if(jour_str_1 == jeudi_str){
+                        timetable.addEvent(tabProgram[i].title, 'Jeudi', date_debut, date_fin, { url: '#' });
+                    }else if(jour_str_1 == vendredi_str){
+                        timetable.addEvent(tabProgram[i].title, 'Vendredi', date_debut, date_fin, { url: '#' });
+                    }else if(jour_str_1 == samedi_str){
+                        timetable.addEvent(tabProgram[i].title, 'Samedi', date_debut, date_fin, { url: '#' });
+                    }else{
+                        timetable.addEvent(tabProgram[i].title, 'Dimanche', date_debut, date_fin, { url: '#' });
+                    }
+                    //timetable.addEvent(tabProgram[i][0], 'Lundi', tabProgram[i][1], tabProgram[i][2], { url: '#' });
+                }
+            }
+        }
+
+        var renderer = new Timetable.Renderer(timetable)
+        renderer.draw('.timetable')
+        
+    </script>
+
+
   </div>
 
 {% endblock %}
