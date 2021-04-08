@@ -101,7 +101,29 @@ exports.validRegister = async(req, res, next) => {
     console.log(passwordConfirm);
     console.log(mail);
 
-    res.redirect('/login');
+    var sql = "INSERT INTO User (pseudo, mail, password, ban, id_status) VALUES ('"
+        + username + "', '"
+        + mail + "', '"
+        + password + "', "
+        + "0 , 3);";
+    
+    if(password != passwordConfirm){
+        return res.status(201).json("Erreur les deux mots de passe sont différents");
+    }else{
+        try {
+            let createUser = await bdd.query(sql);
+    
+            const response = {
+                "username": username,
+                "mail": mail,
+                "password": password,
+            }
+            res.redirect('/login');
+            return res.status(201).json(response);
+        } catch(err) {
+            console.log(err);
+        }
+    }
 }
 
 exports.userLive = async (req, res, next) => {
