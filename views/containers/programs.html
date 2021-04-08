@@ -20,6 +20,23 @@
     <h1>PROGRAMMATION</h1>
 
     <div class="timetable"></div>
+    <script>
+        var tabProgram = []
+
+    </script>
+
+
+    {% for emission in tab_data %}
+    <script>
+        tabProgram.push({
+            "title":"{{emission.title}}",
+            "date_start":"{{emission.date_start}}",
+            "date_end":"{{emission.date_end}}"
+        })
+    </script>
+
+    {% endfor %}
+
 
     <script src="/js/timetable.js"></script>
     <script>
@@ -86,19 +103,30 @@
         var timetable = new Timetable()
         timetable.setScope(0,23)
         timetable.addLocations(['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'])
+        
 
-        const tabProgram = [
+        //var donnees = "{{tab_data[0].title}}"
+        //var taille_tab = "{{tab_data.length}}"
+
+        /*for (var i = 0; i < taille_tab; i++){
+            //var title = "{{tab_data[0].title}}"
+            //var start = "{{tab_data[0].date_start}}"
+            //var end = "{{tab_data[0].date_end}}"
+            //tabProgram.push([title, start, end]);
+        }*/
+
+        /*var tabProgram = [
             //['Emission1', new Date(2021,08,04,7,00), new Date(2021,08,04,8,00)],
             ['Emission1', "2021-04-05T06:00", "2021-04-05T09:00"], 
             ['Emission2', "2021-04-08T15:20", "2021-04-08T17:20"], 
             ['Emission3', "2021-04-09T09:20", "2021-04-09T11:20"], 
             ['Emission4', "2021-04-11T11:00", "2021-04-11T13:00"]
-        ];
+        ];*/
 
         for (var i = 0; i < tabProgram.length; i++){
 
-            const chars_1 = tabProgram[i][1].split('') //decoupage date début
-            const chars_2 = tabProgram[i][2].split('') //decoupage date fin
+            const chars_1 = tabProgram[i].date_start.split('') //decoupage date début
+            const chars_2 = tabProgram[i].date_end.split('') //decoupage date fin
             var soustration = 0
 
             var mois_str_1 = chars_1[5]
@@ -127,19 +155,19 @@
             if(lundi < date_debut){
                 if(dimanche > date_debut){
                     if(jour_str_1 == lundi_str){
-                        timetable.addEvent(tabProgram[i][0], 'Lundi', date_debut, date_fin, { url: '#' });
+                        timetable.addEvent(tabProgram[i].title, 'Lundi', date_debut, date_fin, { url: '#' });
                     }else if(jour_str_1 == mardi_str){
-                        timetable.addEvent(tabProgram[i][0], 'Mardi', date_debut, date_fin, { url: '#' });
+                        timetable.addEvent(tabProgram[i].title, 'Mardi', date_debut, date_fin, { url: '#' });
                     }else if(jour_str_1 == mercredi_str){
-                        timetable.addEvent(tabProgram[i][0], 'Mercredi', date_debut, date_fin, { url: '#' });
+                        timetable.addEvent(tabProgram[i].title, 'Mercredi', date_debut, date_fin, { url: '#' });
                     }else if(jour_str_1 == jeudi_str){
-                        timetable.addEvent(tabProgram[i][0], 'Jeudi', date_debut, date_fin, { url: '#' });
+                        timetable.addEvent(tabProgram[i].title, 'Jeudi', date_debut, date_fin, { url: '#' });
                     }else if(jour_str_1 == vendredi_str){
-                        timetable.addEvent(tabProgram[i][0], 'Vendredi', date_debut, date_fin, { url: '#' });
+                        timetable.addEvent(tabProgram[i].title, 'Vendredi', date_debut, date_fin, { url: '#' });
                     }else if(jour_str_1 == samedi_str){
-                        timetable.addEvent(tabProgram[i][0], 'Samedi', date_debut, date_fin, { url: '#' });
+                        timetable.addEvent(tabProgram[i].title, 'Samedi', date_debut, date_fin, { url: '#' });
                     }else{
-                        timetable.addEvent(tabProgram[i][0], 'Dimanche', date_debut, date_fin, { url: '#' });
+                        timetable.addEvent(tabProgram[i].title, 'Dimanche', date_debut, date_fin, { url: '#' });
                     }
                     //timetable.addEvent(tabProgram[i][0], 'Lundi', tabProgram[i][1], tabProgram[i][2], { url: '#' });
                 }
@@ -150,6 +178,8 @@
         renderer.draw('.timetable')
         
     </script>
+
+
   </div>
 
 {% endblock %}
