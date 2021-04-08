@@ -106,11 +106,12 @@ exports.validRegister = async(req, res, next) => {
 
 exports.userLive = async (req, res, next) => {
     let username = req.params.username;
-
+ let query = "SELECT * from Broadcast INNER JOIN User On Broadcast.id_presenter=User.idUser WHERE idBroadcast=(SELECT max(idBroadcast) FROM Broadcast);"
+    let data = await bdd.query(query)
     res.render('containers/announcerLive', {
         presentator: username, 
-        liveTitle: 'Overwatch un dead game ?',
-        LivePresentation : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at dolor ac massa lobortis dignissim. Duis dictum tristique est non varius. Proin sodales aliquet felis, eu tempus dolor faucibus id. Vivamus vitae dui ut eros posuere gravida. Quisque arcu sem, luctus sit amet eros et, placerat iaculis tortor. Duis sed nunc nec justo posuere eleifend vel viverra turpis. Morbi arcu dolor, maximus euismod mi sit amet, accumsan congue est. Sed malesuada hendrerit magna, a pulvinar sem dapibus in. Pellentesque fermentum arcu id est posuere, sit amet consequat purus pulvinar. Donec non ligula tristique, ullamcorper enim non, vestibulum dui.',
+        liveTitle: data[0].title,
+        LivePresentation: data[0].description,
         jsFile: "../../js"
     })
 }
@@ -126,5 +127,23 @@ exports.profil = async(req, res, next) => {
 
 exports.makeLive = async(req, res, next) => {
     
-    res.render('containers/createLive');
+    res.render('containers/createLive', {
+        username:req.session.username
+    });
+}
+
+exports.makeLiveValid = async (req, res, next) => {
+    console.log(req.body);
+   
+    let query = "INSERT INTO Broadcast(title,description,id_presenter) VALUES('" + req.body.title + "','" + req.body.description + "',(SELECT idUser FROM User WHERE pseudo='" + req.session.username + "'))"
+    console.log(query);
+    let query2 = "INSERT INTO Slot(date_start,date_end,id_broadcast) VALUES('"+req.body.date_start+"','"+req.body.date_end+"',(SELECT max(idBroadcast) FROM Broadcast))"
+    try {
+        await bdd.query(query)
+        await bdd.query(query2)
+    } catch (err) {
+        console.log(err)
+         res.redirect("/")
+    }
+     res.redirect("/user/" + req.session.username + "/live")
 }
