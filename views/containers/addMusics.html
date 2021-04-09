@@ -1,0 +1,29 @@
+{% extends '../layout.html' %}
+
+{% block title %}Ajouter des musiques{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="/stylesheets/addMusics.css">
+{% endblock %}
+
+{% block content %}
+
+{% include '../components/navigation/navigation.html' %}
+
+<div class="container"> 
+
+    <h1>Ajouter des musiques</h1>
+
+    <form action="/user/guitare/addmusics/valid" method="post" enctype="multipart/form-data">
+        <label for="music">Ajout un fichier de musiques MP3</label>
+        <input 
+            type="file"
+            id="music"
+            name="audioFile">
+
+            <input type="submit" id="submit" placeholder="personal_data" value="Ajouter" />
+    </form>
+
+</div>
+
+{% endblock %}

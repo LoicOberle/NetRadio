@@ -20,6 +20,8 @@ let io = require('socket.io')(server);
 
 const LOCAL_PORT = process.env.LOCAL_PORT;
 
+const uploadSecond = multer({ dest: './public/sounds' })
+
 let websockets = [];
 
 swig = new swig.Swig();
@@ -155,10 +157,16 @@ app.get("/logout", (req, res) => {
 
 app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
     console.log(req.file);
-  let uploadLocation = './public/podcasts/' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
+    let uploadLocation = './public/podcasts/' + req.file.originalname // where to save the file to. make sure the incoming name has a .wav extension
 
-  fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
-  res.sendStatus(200); //send back that everything went ok
+    fs.writeFileSync(uploadLocation, Buffer.from(new Uint8Array(req.file.buffer))); // write the blob to the server as a file
+    res.sendStatus(200); //send back that everything went ok
+
+});
+
+app.post('/user/:username/addmusics/valid', uploadSecond.single("audioFile"), (req, res) => {
+    console.log(req.file);
+    res.redirect('/user/guitare/addmusics');
 
 });
 
