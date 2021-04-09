@@ -3,7 +3,7 @@ const app = express();
 const https = require('https');
 const http=require("http")
 var session = require('express-session')
-let io = require('socket.io')(http);
+
 const multer  = require('multer') //use multer to upload blob data
 const upload = multer(); // set multer to be the upload variable (just like express, see above ( include it, then use it/set it up))
 const fs = require('fs');
@@ -16,7 +16,7 @@ var options = {
   cert: cert
 };
 let server = https.createServer(options,app);
-
+let io = require('socket.io')(server);
 
 const LOCAL_PORT = process.env.LOCAL_PORT;
 
