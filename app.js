@@ -20,7 +20,15 @@ let io = require('socket.io')(server);
 
 const LOCAL_PORT = process.env.LOCAL_PORT;
 
-const uploadSecond = multer({ dest: './public/sounds' })
+const musicStorage=multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/sounds')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+const uploadSecond = multer({ dest: './public/sounds' ,storage:musicStorage})
 
 let websockets = [];
 
@@ -166,9 +174,15 @@ app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
 
 app.post('/user/:username/addmusics/valid', uploadSecond.single("audioFile"), (req, res) => {
     console.log(req.file);
-    res.redirect('/user/guitare/addmusics');
+    res.redirect('/user/'+req.session.username+'/addmusics');
 
 });
+
+app.get("/user/:username/addmusics", (req, res) => {
+    res.render("containers/addMusics", {
+         username:req.session.username?req.session.username:""
+    })
+})
 
 app.get('/presenter', (req, res) => {
     res.sendFile("presenter.html", {
