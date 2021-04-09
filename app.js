@@ -1,17 +1,34 @@
 const express = require('express');
 const app = express();
+const https = require('https');
+const http=require("http")
 var session = require('express-session')
-let http = require('http').createServer(app);
-let io = require('socket.io')(http);
+
 const multer  = require('multer') //use multer to upload blob data
 const upload = multer(); // set multer to be the upload variable (just like express, see above ( include it, then use it/set it up))
 const fs = require('fs');
 let swig = require('swig');
 const bodyparser = require("body-parser");
+var key = fs.readFileSync('certificats/selfsigned.key');
+var cert = fs.readFileSync('certificats/selfsigned.crt');
+var options = {
+  key: key,
+  cert: cert
+};
+let server = https.createServer(options,app);
+let io = require('socket.io')(server);
 
 const LOCAL_PORT = process.env.LOCAL_PORT;
 
-const uploadSecond = multer({ dest: './public/sounds' })
+const musicStorage=multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './public/sounds')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+const uploadSecond = multer({ dest: './public/sounds' ,storage:musicStorage})
 
 let websockets = [];
 
@@ -157,9 +174,15 @@ app.post('/audioUpload', upload.single("audioBlob"), (req, res) => {
 
 app.post('/user/:username/addmusics/valid', uploadSecond.single("audioFile"), (req, res) => {
     console.log(req.file);
-    res.redirect('/user/guitare/addmusics');
+    res.redirect('/user/'+req.session.username+'/addmusics');
 
 });
+
+app.get("/user/:username/addmusics", (req, res) => {
+    res.render("containers/addMusics", {
+         username:req.session.username?req.session.username:""
+    })
+})
 
 app.get('/presenter', (req, res) => {
     res.sendFile("presenter.html", {
@@ -173,6 +196,6 @@ app.get('/guest', (req, res) => {
     })
 });
 
-http.listen(LOCAL_PORT,  () => {
+server.listen(LOCAL_PORT,  () => {
     console.log(`Server started on port : ` + LOCAL_PORT );
 });
